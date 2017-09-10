@@ -8,9 +8,50 @@ public class FindElementRotArray {
     public static void main(String[] args) {
 
         List<Integer> arr = Arrays.asList(56,58,67,76,21,32,37,40,45,49);
-        Integer pivot = findElementRotArray(arr ,67);
+       // Integer pivot = findElementRotArray(arr ,67);
+          Integer pivot = findElementWithOutPivot(arr ,67);
         System.out.println(pivot >= 0 ? "Element at index " + pivot + " Elememt is " + arr.get(pivot) : "Element not found");
     }
+
+// Find Element in the Sorted rotated Array without using pivot
+    static Integer findElementWithOutPivot(List<Integer> arr , int data)
+    {
+        int start = 0;
+        int end = arr.size()-1;
+
+        if(arr.get(0) < arr.get(end))
+            return 0;
+
+        while(start<=end)
+        {
+            int mid = start + ((end-start)/2);
+
+            if(arr.get(mid)== data)
+                return mid;
+
+
+            if(arr.get(start)<= arr.get(mid))
+            {
+                if(arr.get(mid)> data && arr.get(start) <= data)
+                {
+                    end = mid-1;
+                }
+                else
+                    start = mid+1;
+            }
+            else
+            {
+                if(arr.get(mid) < data && arr.get(end)>= data)
+                    start = mid+1;
+                else
+                    end = mid-1;
+            }
+
+        }
+        return -1;
+    }
+
+    // Find Element in the Sorted rotated Array with pivot
 
     static Integer findElementRotArray(List<Integer> arr, int data)
     {
