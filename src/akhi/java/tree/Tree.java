@@ -18,8 +18,13 @@ public class Tree {
        // tree.inOrder();
         System.out.println(tree.contains(9)? "Element exist ":"Element does not exists");
         System.out.println(tree.isBst()? "Tree is BST ":"Tree is Not BST");
-        System.out.println(tree.countNodes());
-        System.out.println(tree.getLevel(7));
+       // System.out.println(tree.countNodes());
+        //System.out.println(tree.getBstLevel(7));
+        tree.inOrder();
+        tree.deleteNode(6);
+        System.out.println("After Deletion");
+        tree.inOrder();
+
     }
 
 
@@ -80,7 +85,7 @@ public class Tree {
     {
         if(r.getLeft()!= null)
             inOrder(r.getLeft());
-        System.out.println(r.getData());
+        System.out.print(r.getData());
         if(r.getRight()!=null)
             inOrder(r.getRight());
     }
@@ -151,6 +156,76 @@ public class Tree {
            return getLevel(r.getRight(),a,curlevel+1);
 
    }
+// For Binary Search Tree
+
+    public int getBstLevel(int a)
+    {
+        return getLevel(root,a,1);
+    }
+
+    private int getBstLevel(Node r ,int a ,int curlevel) {
+        if (r == null)
+            return 0;
+        if (r.getData() == a)
+            return curlevel;
+        if (a < r.getData() && r.getLeft() != null) {
+            return getLevel(r.getLeft(), a, curlevel + 1);
+        } else if ((a > r.getData() && r.getRight() != null))
+            return getLevel(r.getRight(), a, curlevel + 1);
+        else
+            return 0;
+    }
+// Delete Node in Binary Search Tree
+
+
+    public int getMinValue(Node node)
+    {
+        if(node==null)
+            return Integer.MIN_VALUE;
+
+        while(node.getLeft()!= null)
+        {
+            node.setLeft(node.getLeft());
+        }
+        return node.getData();
+    }
+
+    public void deleteNode(int value)
+    {
+        root = deleteNode(root , value);
+        return ;
+    }
+
+    public Node deleteNode(Node node , int data)
+    {
+        if(node == null)
+            return null;
+        if(data < node.getData())
+        {
+            node.setLeft(deleteNode(node.getLeft(),data));
+        }
+        else if(data > node.getData())
+        {
+            node.setRight(deleteNode(node.getRight(),data));
+        }
+
+        else
+        {
+            if(node.getLeft() == null)
+                node = node.getRight();
+            else if(node.getRight() == null)
+                node = node.getLeft();
+            else
+            {
+                int min_value = getMinValue(node.getRight());
+                node.setData(min_value);
+                node.setRight(deleteNode(node.getRight() ,min_value));
+            }
+
+        }
+
+        return  node;
+    }
 
 
 }
