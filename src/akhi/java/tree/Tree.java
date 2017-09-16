@@ -1,7 +1,6 @@
 package akhi.java.tree;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Tree {
 
@@ -10,20 +9,23 @@ public class Tree {
     public static void main(String[] args)
     {
         Tree tree = new Tree();
-        List<Integer> nums = Arrays.asList(4,3,7,9,6);
+        List<Integer> nums = Arrays.asList(20,8,22,5,3,25,10,14);
 
         for (Integer num : nums) {
             tree.insert(num);
         }
        // tree.inOrder();
-        System.out.println(tree.contains(9)? "Element exist ":"Element does not exists");
-        System.out.println(tree.isBst()? "Tree is BST ":"Tree is Not BST");
-       // System.out.println(tree.countNodes());
-        //System.out.println(tree.getBstLevel(7));
-        tree.inOrder();
-        tree.deleteNode(6);
-        System.out.println("After Deletion");
-        tree.inOrder();
+//        System.out.println(tree.contains(9)? "Element exist ":"Element does not exists");
+//        System.out.println(tree.isBst()? "Tree is BST ":"Tree is Not BST");
+//       // System.out.println(tree.countNodes());
+//        //System.out.println(tree.getBstLevel(7));
+//        tree.inOrder();
+//       // tree.deleteNode(6);
+//        System.out.println();
+//       // System.out.println("After Deletion");
+//        tree.levelOrder();
+
+        tree.bottomView();
 
     }
 
@@ -227,5 +229,79 @@ public class Tree {
         return  node;
     }
 
+
+    void levelOrder()
+    {
+        levelOrder(root);
+    }
+
+    void levelOrder(Node node)
+    {
+        if(node == null)
+            return;
+        Queue<Node> queue = new LinkedList<>();
+        if(node!=null);
+        queue.add(node);
+        while(!queue.isEmpty())
+        {
+           node = queue.remove();
+            System.out.println(node.getData());
+            if(node.getLeft()!=null)
+                queue.add(node.getLeft());
+            if(node.getRight()!=null)
+                    queue.add(node.getRight());
+        }
+    }
+
+
+    /**
+     * Bottom View of given Tree
+      */
+
+    void bottomView()
+    {
+        bottomView(root);
+    }
+
+    void bottomView(Node node)
+    {
+        if(root == null)
+            return;
+
+
+        int hd =  0;
+        HashMap<Integer,Integer> m = new HashMap<>();
+        Queue<Node> q = new LinkedList<>();
+        node.setHead(hd);
+        q.add(node);
+
+
+
+        while(!q.isEmpty())
+        {
+
+            Node temp = q.remove();
+            hd = temp.getHead();
+            m.put(hd,temp.getData());
+            if(temp.getLeft()!= null)
+            {
+                temp.getLeft().setHead(hd - 1);
+                q.add(temp.getLeft());
+            }
+
+            if(temp.getRight()!= null)
+            {
+                temp.getRight().setHead(hd + 1);
+                q.add(temp.getRight());
+            }
+
+        }
+
+
+        // Printing Hashmap
+
+        for(Integer value : m.values())
+            System.out.println(value);
+    }
 
 }

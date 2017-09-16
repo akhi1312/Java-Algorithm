@@ -5,6 +5,15 @@ public class Node{
     private Node left;
     private Node right;
     private int data;
+    private int head ;
+
+    public int getHead() {
+        return head;
+    }
+
+    public void setHead(int head) {
+        this.head = head;
+    }
 
     public int getData() {
         return data;
