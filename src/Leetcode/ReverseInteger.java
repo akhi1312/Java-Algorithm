@@ -10,9 +10,33 @@ public class ReverseInteger {
 
     public static void main(String[] args){
 
-        int a = -123;
-        System.out.println("Reversed String "+ reverse(a));
+        int b = -123;
+        System.out.println("Reversed String "+ reverse(b));
+        System.out.println(intPalindrom(121) ? "It is palindrome" : "Its not a palindrome");
     }
+
+
+    static boolean intPalindrom(int a) {
+        int rev = 0;
+        int temp = a;
+
+        if(a == 0)
+            return true;
+        if( a < 0)
+            return false;
+        while (temp != 0)
+        {
+
+            rev = rev * 10 + temp % 10;
+            temp /= 10;
+        }
+        if(a==rev)
+            return true;
+        return false;
+
+    }
+
+
 
     public static  Integer reverse( int x){
 
