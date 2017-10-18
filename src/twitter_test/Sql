@@ -1,0 +1,23 @@
+/**
+Investment Question
+
+ */
+
+
+ /**
+ \d represent any number
+ \D represent anything but a number
+ \w represent any character
+ \W represnet anyhting but a charahcter
+ \s represent any space
+ \S Anything but a space
+ .(period) matches any character excepts line break
+ \b My Dog (matches spaces between two words)
+ ? 0 or more repetitions
+ * 0 or more repetitions
+
+
+  */
+
+Select ROUND(SUM(TIV_2012),2) FROM INSURANCE A WHERE EXISTS (SELECT 1 FROM INSURANCE B WHERE B.TIV_2011 = A.TIV_2011)
+AND NOT EXISTS (SELECT 1 FROM INSURANCE B WHERE A.LAT = C.LAT AND A.LON = C.LON);
